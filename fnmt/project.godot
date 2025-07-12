@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="FNMT"
+run/main_scene="uid://dapsksj33y7pc"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://scripts/global/global.gd"
 
 [rendering]
 

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dapsksj33y7pc"]
+
+[ext_resource type="Script" uid="uid://dquqgdbtkvce0" path="res://scripts/game/game.gd" id="1_7h61r"]
+[ext_resource type="PackedScene" uid="uid://pm8e2t0siixt" path="res://scenes/utils/http_requester.tscn" id="1_sul5r"]
+[ext_resource type="Texture2D" uid="uid://dvk22lidxat78" path="res://icon.svg" id="3_kelw5"]
+[ext_resource type="Script" uid="uid://cyrn8y1iodawv" path="res://scripts/ui/main_menu.gd" id="3_lfrn8"]
+[ext_resource type="Script" uid="uid://o7k1lt2eew6t" path="res://scenes/game/loading_progres_bar.gd" id="4_lfrn8"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_7h61r")
+
+[node name="HTTPRequester" parent="." instance=ExtResource("1_sul5r")]
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_lfrn8")
+
+[node name="LoadingProgresBar" type="TextureProgressBar" parent="MainMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+value = 100.0
+fill_mode = 4
+radial_fill_degrees = 60.0
+texture_progress = ExtResource("3_kelw5")
+script = ExtResource("4_lfrn8")
