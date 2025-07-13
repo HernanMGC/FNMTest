@@ -4,5 +4,6 @@
 
 [node name="HTTPRequester" type="Node"]
 script = ExtResource("1_6pc0a")
+http_request_url = "https://script.google.com/macros/s/AKfycbwnsV7uyL3QnxA8Y99VGgR3j9xt0vjd6zdlE1cY56rn-0p3Vc1mn0ddqX0bH358kfy33w/exec"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]

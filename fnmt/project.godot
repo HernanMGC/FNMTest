@@ -11,13 +11,19 @@ config_version=5
 [application]
 
 config/name="FNMT"
-run/main_scene="uid://dapsksj33y7pc"
+run/main_scene="uid://nuetk3bpgysd"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://scripts/global/global.gd"
+
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/size/resizable=false
 
 [rendering]
 

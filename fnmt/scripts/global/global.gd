@@ -2,6 +2,23 @@ extends Node
 
 ## Class Description.
 
+enum QuestionCategory {
+	None,
+	Specific,
+	CollectiveAgreement,
+	EqualityPlan,
+	OSH
+}
+enum QuestionAnswer {
+	A,
+	B,
+	C,
+	D,
+	E,
+	F,
+	Invalid
+}
+
 #region VARIABLES
 #region EXPORT VARIABLES
 #endregion EXPORT VARIABLES
