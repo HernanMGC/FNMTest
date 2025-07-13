@@ -37,7 +37,7 @@ func _ready():
 	http_request.request(http_request_url)
 
 ## On request completed print json headers.
-func _on_request_completed(result, response_code, headers, body):
+func _on_request_completed(_result, _response_code, _headers, body):
 	http_request.request_completed.disconnect(_on_request_completed)
 	var json : Variant = JSON.parse_string(body.get_string_from_utf8())
 	on_questions_retrieved.emit(json);

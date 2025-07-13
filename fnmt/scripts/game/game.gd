@@ -59,18 +59,18 @@ func _on_questions_retrieved(json : Variant) -> void:
 		question.question_id = json_line["id"]
 		question.opo_code = json_line["exam_id"]
 		question.question_number = json_line["q_number"]
-		question.question_category = parse_question_category(json_line["q_category"])
+		question.question_category = Global.parse_question_category(json_line["q_category"])
 		question.position = json_line["position"]
 		question.published_date = json_line["date"]
 		question.level = json_line["level"]
 		question.question_body = json_line["q_text"]
-		question.answers.append(json_line["q_option_a"])
-		question.answers.append(json_line["q_option_b"])
-		question.answers.append(json_line["q_option_c"])
-		question.answers.append(json_line["q_option_d"])
-		question.answers.append(json_line["q_option_e"])
-		question.answers.append(json_line["q_option_f"])
-		question.correct_answer = parse_question_answer(json_line["q_answer"])
+		question.answers.append(str(json_line["q_option_a"]))
+		question.answers.append(str(json_line["q_option_b"]))
+		question.answers.append(str(json_line["q_option_c"]))
+		question.answers.append(str(json_line["q_option_d"]))
+		question.answers.append(str(json_line["q_option_e"]))
+		question.answers.append(str(json_line["q_option_f"]))
+		question.correct_answer = Global.parse_question_answer(json_line["q_answer"])
 		questions.append(question)
 		
 	print(questions[0])
@@ -78,27 +78,6 @@ func _on_questions_retrieved(json : Variant) -> void:
 	
 	on_game_is_ready.emit()
 	
-## Parse json's question category and returns the proper enum for the game.
-func parse_question_category(category_string : String) -> Global.QuestionCategory:
-	match category_string:
-		"Especifico": return Global.QuestionCategory.Specific
-		"Convenio Colectivo": return Global.QuestionCategory.CollectiveAgreement
-		"Plan Igualdad": return Global.QuestionCategory.EqualityPlan
-		"PRL": return Global.QuestionCategory.OSH
-	
-	return Global.QuestionCategory.None
-	
-## Parse json's question answer and retunrs the proper enum for the game. 
-func parse_question_answer(answer : String) -> Global.QuestionAnswer:
-	match answer:
-		"A": return Global.QuestionAnswer.A
-		"B": return Global.QuestionAnswer.B
-		"C": return Global.QuestionAnswer.C
-		"D": return Global.QuestionAnswer.D
-		"E": return Global.QuestionAnswer.E
-		"F": return Global.QuestionAnswer.F
-	
-	return Global.QuestionAnswer.Invalid
 #endregion PRIVATE METHODS
 
 #region STATIC METHODS

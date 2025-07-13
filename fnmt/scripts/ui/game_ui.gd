@@ -20,9 +20,7 @@ var game : Game = null
 #endregion PRIVATE VARIABLES
 
 #region ONREADY PRIVATE VARIABLES
-@onready var opo_code_label : Label = $Container/NinePatchRect/MarginContainer/VBoxContainer/HSplitContainer/MarginContainer/OpoCode
-@onready var question_number_label : Label = $Container/NinePatchRect/MarginContainer/VBoxContainer/HSplitContainer/MarginContainer/QuestionNumber
-@onready var question_body_label : Label = $Container/NinePatchRect/MarginContainer/VBoxContainer/QuestionBody
+@onready var question_ui : QuestionUi = $QuestionUI
 #endregion ONREADY PRIVATE VARIABLES
 #endregion VARIABLES
 
@@ -42,9 +40,7 @@ func _ready() -> void:
 ## Reacts to game's on_game_is_ready signal to stop loading spinner.
 func _on_game_is_ready():
 	var question : Question = game.get_random_question()
-	opo_code_label.text = question.opo_code
-	question_number_label.text = "#" + str(question.question_number)
-	question_body_label.text = question.question_body
+	question_ui.set_question(question)
 	pass
 #endregion PRIVATE METHODS
 
