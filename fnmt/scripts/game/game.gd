@@ -18,6 +18,7 @@ signal on_game_is_ready
 #endregion PUBLIC VARIABLES
 
 #region PRIVATE VARIABLES
+## Questions parsed.
 var questions : Array[Question] = []
 #endregion PRIVATE VARIABLES
 
@@ -29,6 +30,12 @@ var questions : Array[Question] = []
 
 #region METHODS
 #region PUBLIC METHODS
+func get_random_question() -> Question:
+	var rng = RandomNumberGenerator.new()
+	var my_random_number = rng.randi_range(0, questions.size() - 1)
+	
+	return questions[my_random_number]
+
 #endregion PUBLIC METHODS
 
 #region PRIVATE METHODS
@@ -67,10 +74,11 @@ func _on_questions_retrieved(json : Variant) -> void:
 		questions.append(question)
 		
 	print(questions[0])
+	print(json[0])
 	
 	on_game_is_ready.emit()
-	pass
 	
+## Parse json's question category and returns the proper enum for the game.
 func parse_question_category(category_string : String) -> Global.QuestionCategory:
 	match category_string:
 		"Especifico": return Global.QuestionCategory.Specific
@@ -80,6 +88,7 @@ func parse_question_category(category_string : String) -> Global.QuestionCategor
 	
 	return Global.QuestionCategory.None
 	
+## Parse json's question answer and retunrs the proper enum for the game. 
 func parse_question_answer(answer : String) -> Global.QuestionAnswer:
 	match answer:
 		"A": return Global.QuestionAnswer.A

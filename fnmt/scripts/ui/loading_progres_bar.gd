@@ -11,6 +11,7 @@ extends TextureProgressBar
 #endregion PUBLIC VARIABLES
 
 #region PRIVATE VARIABLES
+## Loading animation tween reference for stoping on loading complete.
 var tween : Tween = null
 #endregion PRIVATE VARIABLES
 
@@ -20,12 +21,14 @@ var tween : Tween = null
 
 #region METHODS
 #region PUBLIC METHODS
+## Stops and hides loading spinner.
 func stop_spinner() -> void:
 	tween.stop()
 	hide()
 #endregion PUBLIC METHODS
 
 #region PRIVATE METHODS
+## Starts animation on ready until stop_spinner is called.
 func _ready() -> void:
 	tween = get_tree().create_tween().set_loops()
 	tween.tween_property(self, "radial_initial_angle", 360.0, 1.5).as_relative()

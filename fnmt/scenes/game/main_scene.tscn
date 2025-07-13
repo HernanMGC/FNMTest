@@ -1,15 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://nuetk3bpgysd"]
+[gd_scene load_steps=10 format=3 uid="uid://nuetk3bpgysd"]
 
 [ext_resource type="PackedScene" uid="uid://dapsksj33y7pc" path="res://scenes/game/game.tscn" id="1_xgfdl"]
 [ext_resource type="Script" uid="uid://cyrn8y1iodawv" path="res://scripts/ui/main_menu.gd" id="2_ctcgr"]
 [ext_resource type="Texture2D" uid="uid://dvk22lidxat78" path="res://icon.svg" id="3_7y15e"]
 [ext_resource type="Script" uid="uid://o7k1lt2eew6t" path="res://scripts/ui/loading_progres_bar.gd" id="4_e8o1u"]
+[ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/nine_patch_rect_container.gd" id="5_7y15e"]
+[ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="5_e8o1u"]
+[ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="6_7y15e"]
+[ext_resource type="Script" uid="uid://b178qxf0ac1ti" path="res://scripts/ui/game_ui.gd" id="6_qolqk"]
+[ext_resource type="Texture2D" uid="uid://boa8qsbav1bj2" path="res://art/kenney_ui-pack-space-expansion/PNG/Red/Default/bar_square_large_square.png" id="8_ikqvo"]
 
 [node name="MainScene" type="Node"]
 
 [node name="Game" parent="." instance=ExtResource("1_xgfdl")]
 
-[node name="MainMenu" type="Control" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_ctcgr")
 
-[node name="LoadingProgresBar" type="TextureProgressBar" parent="MainMenu"]
+[node name="LoadingProgresBar" type="TextureProgressBar" parent="CanvasLayer/MainMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -36,3 +43,102 @@ fill_mode = 4
 radial_fill_degrees = 60.0
 texture_progress = ExtResource("3_7y15e")
 script = ExtResource("4_e8o1u")
+
+[node name="GameUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_e8o1u")
+script = ExtResource("6_qolqk")
+
+[node name="Container" type="Container" parent="CanvasLayer/GameUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_7y15e")
+tile_scale = 4.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/GameUI/Container"]
+layout_mode = 2
+texture = ExtResource("6_7y15e")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameUI/Container/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_e8o1u")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameUI/Container/NinePatchRect/MarginContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer" type="NinePatchRect" parent="CanvasLayer/GameUI/Container/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_ikqvo")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameUI/Container/NinePatchRect/MarginContainer/VBoxContainer/HSplitContainer"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_e8o1u")
+theme_type_variation = &"margin_container_label"
+
+[node name="OpoCode" type="Label" parent="CanvasLayer/GameUI/Container/NinePatchRect/MarginContainer/VBoxContainer/HSplitContainer/MarginContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+theme = ExtResource("5_e8o1u")
+text = "OE 20/23"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="QuestionNumber" type="Label" parent="CanvasLayer/GameUI/Container/NinePatchRect/MarginContainer/VBoxContainer/HSplitContainer/MarginContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+theme = ExtResource("5_e8o1u")
+text = "#1"
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="QuestionBody" type="Label" parent="CanvasLayer/GameUI/Container/NinePatchRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+text = "Completa la afirmación de forma correcta: Con la firma electrónica podemos"
+autowrap_mode = 2
+
+[node name="AnswerList" type="VBoxContainer" parent="CanvasLayer/GameUI/Container/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/GameUI/Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerList"]
+layout_mode = 2
+text = "A) Asegurar la integridad del documento o texto firmado"
+autowrap_mode = 2
+
+[node name="Button2" type="Button" parent="CanvasLayer/GameUI/Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerList"]
+layout_mode = 2
+text = "B) Asegurar la fecha y hora del momento en el que se firma"
+autowrap_mode = 2
+
+[node name="Button3" type="Button" parent="CanvasLayer/GameUI/Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerList"]
+layout_mode = 2
+text = "A) Asegurar la integridad del documento o texto firmado"
+autowrap_mode = 2

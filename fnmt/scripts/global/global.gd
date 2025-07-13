@@ -2,6 +2,7 @@ extends Node
 
 ## Class Description.
 
+## Enums for question categories.
 enum QuestionCategory {
 	None,
 	Specific,
@@ -9,6 +10,8 @@ enum QuestionCategory {
 	EqualityPlan,
 	OSH
 }
+
+## Enums for question answers.
 enum QuestionAnswer {
 	A,
 	B,
@@ -24,6 +27,7 @@ enum QuestionAnswer {
 #endregion EXPORT VARIABLES
 
 #region PUBLIC VARIABLES
+## Game node reference.
 var game : Game = null
 #endregion PUBLIC VARIABLES
 

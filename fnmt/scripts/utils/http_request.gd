@@ -5,6 +5,7 @@ extends Node
 ## spreadsheet.
 
 #region SIGNALS
+## Signale emitted when questions has been succesfully retrieved from the endpoint.
 signal on_questions_retrieved(questions : Variant)
 #endregion SIGNALS
 
