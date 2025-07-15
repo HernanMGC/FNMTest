@@ -6,7 +6,7 @@ extends Node
 
 #region SIGNALS
 ## Signale emitted when questions has been succesfully retrieved from the endpoint.
-signal on_questions_retrieved(questions : Variant)
+signal questions_retrieved(questions : Variant)
 #endregion SIGNALS
 
 #region VARIABLES
@@ -40,7 +40,7 @@ func _ready():
 func _on_request_completed(_result, _response_code, _headers, body):
 	http_request.request_completed.disconnect(_on_request_completed)
 	var json : Variant = JSON.parse_string(body.get_string_from_utf8())
-	on_questions_retrieved.emit(json);
+	questions_retrieved.emit(json);
 #endregion PRIVATE METHODS
 
 #region STATIC METHODS

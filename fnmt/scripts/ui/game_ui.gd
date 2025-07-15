@@ -15,7 +15,7 @@ extends Control
 
 #region PRIVATE VARIABLES
 ## Game node reference. It will be retrieved by calling for globals and will be
-## used to connecto on_game_is_ready signal. 
+## used to connecto on_current_question_changed signal. 
 var game : Game = null
 #endregion PRIVATE VARIABLES
 
@@ -30,18 +30,23 @@ var game : Game = null
 #endregion PUBLIC METHODS
 
 #region PRIVATE METHODS
-## On ready connect to on_game_is_ready signal to stop loading spinner.
+## On ready connect to on_current_question_changed signal to stop loading spinner.
 func _ready() -> void:
 	game = Global.game
 	if (!game):
 		return
 	
-	game.on_game_is_ready.connect(_on_game_is_ready)
+	game.current_question_changed.connect(_on_current_question_changed)
+	game.question_answered.connect(_on_question_answered)
 	
-## Reacts to game's on_game_is_ready signal to stop loading spinner.
-func _on_game_is_ready():
-	var question : Question = game.get_random_question()
+## Reacts to game's current_question_changed signal to stop loading spinner.
+func _on_current_question_changed(question : Question):
 	question_ui.set_question(question)
+	pass
+	
+## Reacts to game's question_answered signal to add feedback for question UI.
+func _on_question_answered(answer_sent : Global.QuestionAnswer, correct_answer : Global.QuestionAnswer):
+	question_ui.set_question_answered_feedback(answer_sent, correct_answer)
 	pass
 #endregion PRIVATE METHODS
 

@@ -36,7 +36,7 @@ func _ready() -> void:
 	if (!game):
 		return
 	
-	game.on_game_is_ready.connect(_on_game_is_ready)
+	game.game_is_ready.connect(_on_game_is_ready)
 	pass
 
 ## Reacts to game's on_game_is_ready signal to stop loading spinner.

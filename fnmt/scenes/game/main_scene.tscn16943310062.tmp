@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://nuetk3bpgysd"]
+[gd_scene load_steps=8 format=3 uid="uid://nuetk3bpgysd"]
 
 [ext_resource type="PackedScene" uid="uid://dapsksj33y7pc" path="res://scenes/game/game.tscn" id="1_xgfdl"]
 [ext_resource type="Script" uid="uid://cyrn8y1iodawv" path="res://scripts/ui/main_menu.gd" id="2_ctcgr"]
@@ -7,7 +7,6 @@
 [ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="5_e8o1u"]
 [ext_resource type="Script" uid="uid://b178qxf0ac1ti" path="res://scripts/ui/game_ui.gd" id="6_qolqk"]
 [ext_resource type="PackedScene" uid="uid://csfdw1hxl68ax" path="res://scenes/ui/question_ui.tscn" id="7_e8o1u"]
-[ext_resource type="PackedScene" uid="uid://cy5vgo8swb17k" path="res://scenes/ui/answer_button.tscn" id="8_ikqvo"]
 
 [node name="MainScene" type="Node"]
 
@@ -55,4 +54,3 @@ script = ExtResource("6_qolqk")
 
 [node name="QuestionUI" parent="CanvasLayer/GameUI" instance=ExtResource("7_e8o1u")]
 layout_mode = 1
-ButtonScene = ExtResource("8_ikqvo")

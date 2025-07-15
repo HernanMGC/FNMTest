@@ -9,11 +9,21 @@ extends Node
 ## Signal for game is ready. Game is considered ready when HTTP request for
 ## retrieving questions is done and json is parsed for the game to prompt
 ## questions.
-signal on_game_is_ready
+signal game_is_ready
+
+## Signal sent for question answered for UI to update its feedback, answerd_sent
+## is the answer selected by the user in the answer_question call, and 
+## correct_answer is the proper answer for the current question.
+signal question_answered(answer_sent : Global.QuestionAnswer, correct_answer : Global.QuestionAnswer)
+
+## Signarl sent when current question has changed.
+signal current_question_changed(current_question : Question)
 #endregion SIGNALS
 
 #region VARIABLES
 #region EXPORT VARIABLES
+## Time to wait after answering a question for next question to appear.
+@export var wait_for_next_question_time : float = 2.0
 #endregion EXPORT VARIABLES
 
 #region PUBLIC VARIABLES
@@ -24,7 +34,7 @@ signal on_game_is_ready
 var questions : Array[Question] = []
 
 ## Current question
-var current_cuestion : Question = null
+var current_question : Question = null
 #endregion PRIVATE VARIABLES
 
 #region ONREADY PRIVATE VARIABLES
@@ -40,16 +50,23 @@ func get_random_question() -> Question:
 	var rng = RandomNumberGenerator.new()
 	var my_random_number = rng.randi_range(0, questions.size() - 1)
 	
-	current_cuestion = questions[my_random_number]
-	print(current_cuestion.original_json)
-	return current_cuestion
+	current_question = questions[my_random_number]
+	print(current_question.original_json)
+	current_question_changed.emit(current_question)
+	return current_question
 
 ## Answers question and launches feedback events.
 func answer_question(answer_index : Global.QuestionAnswer):
 	print(
-		"Answered: " + str(answer_index) + " Correct Answer " + str(current_cuestion.correct_answer) +
-		" then " + ("Correct" if current_cuestion.correct_answer == answer_index else "Incorrect")
+		"Answered: " + str(answer_index) + " Correct Answer " + str(current_question.correct_answer) +
+		" then " + ("Correct" if current_question.correct_answer == answer_index else "Incorrect")
 	)
+		
+	## Signal sent for question answered for UI to update its feedback, answerd_sent
+	## is the answer selected by the user in the )
+	question_answered.emit(answer_index, current_question.correct_answer)
+	await get_tree().create_timer(wait_for_next_question_time).timeout
+	get_random_question()
 	pass
 #endregion PUBLIC METHODS
 
@@ -62,11 +79,11 @@ func _ready() -> void:
 	if (!http_requester):
 		return
 	
-	http_requester.on_questions_retrieved.connect(_on_questions_retrieved)
+	http_requester.questions_retrieved.connect(_on_questions_retrieved)
 	
 ## Reacts to on_questions_retrieved and parse JSON to set game as ready.
 func _on_questions_retrieved(json : Variant) -> void:
-	http_requester.on_questions_retrieved.disconnect(_on_questions_retrieved)
+	http_requester.questions_retrieved.disconnect(_on_questions_retrieved)
 	
 	# TODO parse JSON
 	for json_line in json:
@@ -89,10 +106,11 @@ func _on_questions_retrieved(json : Variant) -> void:
 		question.correct_answer = Global.parse_question_answer(json_line["q_answer"])
 		questions.append(question)
 		
-	current_cuestion = questions[0]
-	print(current_cuestion.original_json)
+	current_question = questions[0]
+	current_question_changed.emit(current_question)
+	print(current_question.original_json)
 	
-	on_game_is_ready.emit()
+	game_is_ready.emit()
 #endregion PRIVATE METHODS
 
 #region STATIC METHODS

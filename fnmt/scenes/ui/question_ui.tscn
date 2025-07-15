@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://csfdw1hxl68ax"]
+[gd_scene load_steps=9 format=3 uid="uid://csfdw1hxl68ax"]
 
 [ext_resource type="Script" uid="uid://dxug6pee02lqt" path="res://scripts/ui/question_ui.gd" id="1_knkug"]
 [ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/nine_patch_rect_container.gd" id="1_sd07m"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://boa8qsbav1bj2" path="res://art/kenney_ui-pack-space-expansion/PNG/Red/Default/bar_square_large_square.png" id="4_mi1kx"]
 [ext_resource type="Texture2D" uid="uid://ooydqe06gr3j" path="res://art/kenney_ui-pack-space-expansion/Vector/Yellow/bar_square_large_square.svg" id="6_hxwhs"]
 [ext_resource type="Script" uid="uid://cugevxe1378xo" path="res://scripts/ui/answer_button.gd" id="7_mi1kx"]
+[ext_resource type="PackedScene" uid="uid://cy5vgo8swb17k" path="res://scenes/ui/answer_button.tscn" id="7_t4rtd"]
 
 [node name="QuestionUI" type="Control"]
 layout_mode = 3
@@ -123,11 +124,9 @@ autowrap_mode = 3
 [node name="AnswerList" type="VBoxContainer" parent="Container/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerList"]
+[node name="Button" parent="Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerList" instance=ExtResource("7_t4rtd")]
 layout_mode = 2
-text = "A) Asegurar la integridad del documento o texto firmado"
-autowrap_mode = 2
-script = ExtResource("7_mi1kx")
+theme_type_variation = &"button_correct"
 
 [node name="Button2" type="Button" parent="Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerList"]
 layout_mode = 2
@@ -137,6 +136,7 @@ script = ExtResource("7_mi1kx")
 
 [node name="Button3" type="Button" parent="Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerList"]
 layout_mode = 2
+theme_type_variation = &"button_incorrect"
 text = "C) Asegurar la fecha y hora del momento en el que se firma"
 autowrap_mode = 2
 script = ExtResource("7_mi1kx")

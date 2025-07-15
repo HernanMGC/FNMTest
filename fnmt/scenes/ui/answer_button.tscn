@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy5vgo8swb17k"]
+
+[ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="1_402n4"]
+[ext_resource type="Script" uid="uid://cugevxe1378xo" path="res://scripts/ui/answer_button.gd" id="2_egq43"]
+
+[node name="Button" type="Button"]
+theme = ExtResource("1_402n4")
+text = "A) Asegurar la integridad del documento o texto firmado"
+autowrap_mode = 2
+script = ExtResource("2_egq43")
