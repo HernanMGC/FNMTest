@@ -118,7 +118,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 text = "Completa la afirmación de forma correcta: Con la firma electrónica podemos"
-autowrap_mode = 2
+autowrap_mode = 3
 
 [node name="AnswerList" type="VBoxContainer" parent="Container/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2

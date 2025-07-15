@@ -1,10 +1,10 @@
 extends Node
 
-## Class Description.
+## Global enums and node for better accessibility.
 
 ## Enums for question categories.
 enum QuestionCategory {
-	None,
+	None = 0,
 	Specific,
 	CollectiveAgreement,
 	EqualityPlan,
@@ -13,13 +13,13 @@ enum QuestionCategory {
 
 ## Enums for question answers.
 enum QuestionAnswer {
+	Invalid = 0,
 	A,
 	B,
 	C,
 	D,
 	E,
 	F,
-	Invalid
 }
 
 #region VARIABLES
@@ -46,12 +46,12 @@ func parse_question_category(category_string : String) -> Global.QuestionCategor
 	match category_string:
 		"Especifico": return Global.QuestionCategory.Specific
 		"Convenio Colectivo": return Global.QuestionCategory.CollectiveAgreement
-		"Plan Igualdad": return Global.QuestionCategory.EqualityPlan
+		"P. Igualdad": return Global.QuestionCategory.EqualityPlan
 		"PRL": return Global.QuestionCategory.OSH
 	
 	return Global.QuestionCategory.None
 	
-## Parse json's question answer and retunrs the proper enum for the game. 
+## Parses json's question answer and retunrs the proper enum for the game. 
 func parse_question_answer(answer : String) -> Global.QuestionAnswer:
 	match answer:
 		"A": return Global.QuestionAnswer.A
@@ -62,7 +62,8 @@ func parse_question_answer(answer : String) -> Global.QuestionAnswer:
 		"F": return Global.QuestionAnswer.F
 	
 	return Global.QuestionAnswer.Invalid
-	
+
+## Returns QuestionCategory nicename.
 func get_category_nicename(category : Global.QuestionCategory) -> String :
 	match category:
 		Global.QuestionCategory.Specific: return "Especifico"

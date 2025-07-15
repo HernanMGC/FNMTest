@@ -20,6 +20,7 @@ var game : Game = null
 #endregion PRIVATE VARIABLES
 
 #region ONREADY PRIVATE VARIABLES
+## Question UI cached node.
 @onready var question_ui : QuestionUi = $QuestionUI
 #endregion ONREADY PRIVATE VARIABLES
 #endregion VARIABLES

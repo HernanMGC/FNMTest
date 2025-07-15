@@ -8,6 +8,9 @@ extends Resource
 
 #region VARIABLES
 #region EXPORT VARIABLES
+## Original JSON
+var original_json : Variant
+
 ## Question id. It is a combination of opo_code and question_number.
 var question_id : String = ""
 
