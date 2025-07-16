@@ -7,3 +7,4 @@
 * Botón para dejar notas sobre las preguntas.
 * Filtro de preguntas según tengan notas o correcciones.
 * Settings para cambiar el filtrado de preguntas en una partida.
+* Change app icon.
