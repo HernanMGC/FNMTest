@@ -30,6 +30,9 @@ signal current_question_changed(current_question : Question)
 #endregion PUBLIC VARIABLES
 
 #region PRIVATE VARIABLES
+## Is game ready.
+var is_game_ready : bool = false 
+
 ## Questions parsed.
 var questions : Array[Question] = []
 
@@ -45,6 +48,18 @@ var current_question : Question = null
 
 #region METHODS
 #region PUBLIC METHODS
+## Returns game is ready
+func get_is_game_ready() -> bool:
+	return is_game_ready
+ 
+## If questions are ready show Game UI, if not show Loading Screen. 
+func try_start() -> void:
+	if (get_is_game_ready()):
+		Global.show_game_ui()
+	else:
+		Global.show_loading_screen(game_is_ready)
+		game_is_ready.connect(Global.show_game_ui, CONNECT_ONE_SHOT)
+
 ## Gets random question and sets as current question. 
 func get_random_question() -> Question:
 	var rng = RandomNumberGenerator.new()
@@ -109,7 +124,7 @@ func _on_questions_retrieved(json : Variant) -> void:
 	current_question = questions[0]
 	current_question_changed.emit(current_question)
 	print(current_question.original_json)
-	
+	is_game_ready = true
 	game_is_ready.emit()
 #endregion PRIVATE METHODS
 

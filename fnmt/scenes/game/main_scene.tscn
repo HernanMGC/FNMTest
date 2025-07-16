@@ -1,13 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://nuetk3bpgysd"]
+[gd_scene load_steps=11 format=3 uid="uid://nuetk3bpgysd"]
 
 [ext_resource type="PackedScene" uid="uid://dapsksj33y7pc" path="res://scenes/game/game.tscn" id="1_xgfdl"]
 [ext_resource type="Script" uid="uid://cyrn8y1iodawv" path="res://scripts/ui/main_menu.gd" id="2_ctcgr"]
-[ext_resource type="Texture2D" uid="uid://dvk22lidxat78" path="res://icon.svg" id="3_7y15e"]
-[ext_resource type="Script" uid="uid://o7k1lt2eew6t" path="res://scripts/ui/loading_progres_bar.gd" id="4_e8o1u"]
+[ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/nine_patch_rect_container.gd" id="3_8dgrd"]
+[ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="4_3fhbu"]
 [ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="5_e8o1u"]
 [ext_resource type="Script" uid="uid://b178qxf0ac1ti" path="res://scripts/ui/game_ui.gd" id="6_qolqk"]
 [ext_resource type="PackedScene" uid="uid://csfdw1hxl68ax" path="res://scenes/ui/question_ui.tscn" id="7_e8o1u"]
 [ext_resource type="PackedScene" uid="uid://cy5vgo8swb17k" path="res://scenes/ui/answer_button.tscn" id="8_ikqvo"]
+[ext_resource type="PackedScene" uid="uid://dd076ltdp5car" path="res://scenes/ui/loading_screen.tscn" id="10_3fhbu"]
+[ext_resource type="Script" uid="uid://du0ll60ma0x8g" path="res://scripts/ui/loading_screen.gd" id="11_efx54"]
 
 [node name="MainScene" type="Node"]
 
@@ -24,26 +26,41 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_ctcgr")
 
-[node name="LoadingProgresBar" type="TextureProgressBar" parent="CanvasLayer/MainMenu"]
+[node name="Container" type="Container" parent="CanvasLayer/MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_8dgrd")
+tile_scale = 4.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/MainMenu/Container"]
+layout_mode = 2
+texture = ExtResource("4_3fhbu")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/MainMenu/Container/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-value = 100.0
-fill_mode = 4
-radial_fill_degrees = 60.0
-texture_progress = ExtResource("3_7y15e")
-script = ExtResource("4_e8o1u")
+text = "Play"
 
 [node name="GameUI" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,3 +73,18 @@ script = ExtResource("6_qolqk")
 [node name="QuestionUI" parent="CanvasLayer/GameUI" instance=ExtResource("7_e8o1u")]
 layout_mode = 1
 ButtonScene = ExtResource("8_ikqvo")
+
+[node name="LoadingScreen" parent="CanvasLayer" instance=ExtResource("10_3fhbu")]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("11_efx54")
+
+[connection signal="pressed" from="CanvasLayer/MainMenu/Container/NinePatchRect/PlayButton" to="CanvasLayer/MainMenu" method="_on_play_button_pressed"]

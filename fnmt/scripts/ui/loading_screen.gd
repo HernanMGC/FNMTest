@@ -1,7 +1,8 @@
-class_name MainMenu
+class_name LoadingScreen
 extends Control
 
-## Class Description.
+## General script for loading screen. It will be added to global and turn 
+## visible every time it needs to stop user action and load stuff.
 
 #region SIGNALS
 #endregion SIGNALS
@@ -14,10 +15,10 @@ extends Control
 #endregion PUBLIC VARIABLES
 
 #region PRIVATE VARIABLES
-## Game node reference. It will be retrieved by calling for globals and will be
-## used to connecto on_game_is_ready signal. 
-var game : Game = null
 #endregion PRIVATE VARIABLES
+
+#region ONREADY PUBLIC VARIABLES
+#endregion ONREADY PUBLIC VARIABLES
 
 #region ONREADY PRIVATE VARIABLES
 #endregion ONREADY PRIVATE VARIABLES
@@ -25,19 +26,12 @@ var game : Game = null
 
 #region METHODS
 #region PUBLIC METHODS
-## Hide Main Menu and try starting the game
-func _on_play_button_pressed() -> void:
-	hide()
-	game.try_start()
-	pass # Replace with function body.
 #endregion PUBLIC METHODS
 
 #region PRIVATE METHODS
-## On ready connect to on_game_is_ready signal to stop loading spinner.
+## On ready register itself to global and connect to on_current_question_changed signal to stop loading spinner.
 func _ready() -> void:
-	game = Global.game
-	if (!game):
-		return
+	Global.loading_screen = self
 #endregion PRIVATE METHODS
 
 #region STATIC METHODS

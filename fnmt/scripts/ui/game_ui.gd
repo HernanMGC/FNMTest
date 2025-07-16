@@ -30,8 +30,9 @@ var game : Game = null
 #endregion PUBLIC METHODS
 
 #region PRIVATE METHODS
-## On ready connect to on_current_question_changed signal to stop loading spinner.
+## On ready register itself to global and connect to on_current_question_changed signal to stop loading spinner.
 func _ready() -> void:
+	Global.game_screen = self
 	game = Global.game
 	if (!game):
 		return

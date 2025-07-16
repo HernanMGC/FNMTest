@@ -29,9 +29,18 @@ enum QuestionAnswer {
 #region PUBLIC VARIABLES
 ## Game node reference.
 var game : Game = null
+
+## Loading screen.
+var game_screen : GameUi = null
+
+## Loading screen.
+var loading_screen : LoadingScreen = null
 #endregion PUBLIC VARIABLES
 
 #region PRIVATE VARIABLES
+## Number of events that has made loading screen to appear on count reaching 0
+## loading screen hides, over 0 loading screen shows.
+var waiting_count : int = 0
 #endregion PRIVATE VARIABLES
 
 #region ONREADY PRIVATE VARIABLES
@@ -72,9 +81,28 @@ func get_category_nicename(category : Global.QuestionCategory) -> String :
 		Global.QuestionCategory.OSH: return "PRL"
 	
 	return ""
+	
+## Show Game UI, it serves as game starter. It is assumed that questions are
+## ready.
+func show_game_ui() -> void:
+	game_screen.show()
+	pass
+	
+## Show UI
+func show_loading_screen(wait_signal : Signal) -> void:
+	if (waiting_count == 0):
+		loading_screen.show()
+
+	waiting_count += 1
+	wait_signal.connect(on_wait_signal_received, CONNECT_ONE_SHOT)
 #endregion PUBLIC METHODS
 
 #region PRIVATE METHODS
+## Hide loading screen if waiting count reached 0.
+func on_wait_signal_received() -> void:
+	waiting_count = max(waiting_count - 1, 0)
+	if (waiting_count == 0):
+		loading_screen.hide()
 #endregion PRIVATE METHODS
 
 #region STATIC METHODS
