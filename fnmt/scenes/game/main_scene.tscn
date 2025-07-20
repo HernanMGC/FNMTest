@@ -14,6 +14,7 @@
 [node name="MainScene" type="Node"]
 
 [node name="Game" parent="." instance=ExtResource("1_xgfdl")]
+wait_for_next_question_time = 2.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

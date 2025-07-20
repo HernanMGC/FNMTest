@@ -37,8 +37,13 @@ func _ready() -> void:
 	if (!game):
 		return
 	
+	## TODO maybe this is a big patch.
+	
 	game.current_question_changed.connect(_on_current_question_changed)
 	game.question_answered.connect(_on_question_answered)
+	
+	if game.get_is_game_ready():
+		question_ui.set_question(game.current_question)
 	
 ## Reacts to game's current_question_changed signal to stop loading spinner.
 func _on_current_question_changed(question : Question):

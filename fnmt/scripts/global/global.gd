@@ -49,7 +49,6 @@ var waiting_count : int = 0
 
 #region METHODS
 #region PUBLIC METHODS
-
 ## Parse json's question category and returns the proper enum for the game.
 func parse_question_category(category_string : String) -> Global.QuestionCategory:
 	match category_string:

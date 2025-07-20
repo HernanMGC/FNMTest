@@ -38,6 +38,11 @@ var questions : Array[Question] = []
 
 ## Current question
 var current_question : Question = null
+
+## SQL database
+var database : SQLite
+
+var questions_table : String = "questions"
 #endregion PRIVATE VARIABLES
 
 #region ONREADY PRIVATE VARIABLES
@@ -66,7 +71,7 @@ func get_random_question() -> Question:
 	var my_random_number = rng.randi_range(0, questions.size() - 1)
 	
 	current_question = questions[my_random_number]
-	print(current_question.original_json)
+	print("get_random_question(): " + current_question.question_id)
 	current_question_changed.emit(current_question)
 	return current_question
 
@@ -90,42 +95,116 @@ func answer_question(answer_index : Global.QuestionAnswer):
 ## on_questions_retrieve signal to set game as ready.
 func _ready() -> void:
 	Global.game = self
-	
 	if (!http_requester):
 		return
 	
-	http_requester.questions_retrieved.connect(_on_questions_retrieved)
+	open_database()
+	try_create_table()
+	try_populate_questions()
+
+## Ope database for write.
+func open_database():
+	database = SQLite.new()
+	database.path = 'user://data.db'
+	database.open_db()
 	
+## Create questions table
+func try_create_table() -> void:
+	var table_definition = {
+		"id" : {"data_type" : "text", "primary_key" : true, "not_null" : true},
+		"exam_id" : {"data_type" : "text"},
+		"q_number" : {"data_type" : "int"},
+		"q_category" : {"data_type" : "text"},
+		"position" : {"data_type" : "text"},
+		"date" : {"data_type" : "date"},
+		"level" : {"data_type" : "int"},
+		"q_text" : {"data_type" : "text"},
+		"q_option_a" : {"data_type" : "text"},
+		"q_option_b" : {"data_type" : "text"},
+		"q_option_c" : {"data_type" : "text"},
+		"q_option_d" : {"data_type" : "text"},
+		"q_option_e" : {"data_type" : "text"},
+		"q_option_f" : {"data_type" : "text"},
+		"q_answer" : {"data_type" : "text"}
+	}
+	database.create_table(questions_table, table_definition)
+
+## Tries to retrieve all questions and caches on questions var, if database is empty
+func try_populate_questions() -> void:
+	var rows = database.select_rows(questions_table, "", ["*"])
+	if rows.size() <= 0:
+		http_requester.start_query()
+		http_requester.questions_retrieved.connect(_on_request_finished)
+	else:
+		parse_db_rows_to_questions(rows)
+		current_question = questions[0]
+		current_question_changed.emit(current_question)
+		print("try_populate_questions(): " + current_question.question_id)
+		is_game_ready = true
+		game_is_ready.emit()
+
+## Creates questions resource from rows.
+func parse_db_rows_to_questions(rows : Array[Dictionary]) -> void:
+	for row : Dictionary in rows:
+		var question : Question = Question.new()
+		question.question_id = row["id"]
+		question.opo_code = row["exam_id"]
+		question.question_number = row["q_number"]
+		question.question_category = Global.parse_question_category(row["q_category"])
+		question.position = row["position"]
+		question.published_date = row["date"]
+		question.level = row["level"]
+		question.question_body = row["q_text"]
+		question.answers.append(str(row["q_option_a"]))
+		question.answers.append(str(row["q_option_b"]))
+		question.answers.append(str(row["q_option_c"]))
+		question.answers.append(str(row["q_option_d"]))
+		question.answers.append(str(row["q_option_e"]))
+		question.answers.append(str(row["q_option_f"]))
+		question.correct_answer = Global.parse_question_answer(row["q_answer"])
+		questions.append(question)
+
+## Insert quetion into table
+func insert_question(json : Variant) -> void:
+	var id : String = json["id"];
+	
+	var new_question_entry = {
+		"exam_id" : json["exam_id"],
+		"q_number" : int(json["q_number"]),
+		"q_category" : json["q_category"],
+		"position" : json["position"],
+		"date" : json["date"],
+		"level" : int(json["level"]),
+		"q_text" : json["q_text"],
+		"q_option_a" : json["q_option_a"],
+		"q_option_b" : json["q_option_b"],
+		"q_option_c" : json["q_option_c"],
+		"q_option_d" : json["q_option_d"],
+		"q_option_e" : json["q_option_e"],
+		"q_option_f" : json["q_option_f"],
+		"q_answer" : json["q_answer"]
+	}
+
+	database.select_rows(questions_table, "id = '" + id + "'", ["id"])
+	var query_result : Array = database.query_result
+	if !query_result.is_empty():
+		database.update_rows(questions_table, "id = '"+ id +"'", new_question_entry)
+	else:
+		new_question_entry["id"] = id
+		database.insert_row(questions_table, new_question_entry)
+			
 ## Reacts to on_questions_retrieved and parse JSON to set game as ready.
-func _on_questions_retrieved(json : Variant) -> void:
-	http_requester.questions_retrieved.disconnect(_on_questions_retrieved)
+func _on_request_finished(json : Variant) -> void:
+	http_requester.questions_retrieved.disconnect(_on_request_finished)
 	
+	if json.size() <= 0:
+		return
+		
 	# TODO parse JSON
 	for json_line in json:
-		var question : Question = Question.new()
-		question.original_json = json_line
-		question.question_id = json_line["id"]
-		question.opo_code = json_line["exam_id"]
-		question.question_number = json_line["q_number"]
-		question.question_category = Global.parse_question_category(json_line["q_category"])
-		question.position = json_line["position"]
-		question.published_date = json_line["date"]
-		question.level = json_line["level"]
-		question.question_body = json_line["q_text"]
-		question.answers.append(str(json_line["q_option_a"]))
-		question.answers.append(str(json_line["q_option_b"]))
-		question.answers.append(str(json_line["q_option_c"]))
-		question.answers.append(str(json_line["q_option_d"]))
-		question.answers.append(str(json_line["q_option_e"]))
-		question.answers.append(str(json_line["q_option_f"]))
-		question.correct_answer = Global.parse_question_answer(json_line["q_answer"])
-		questions.append(question)
-		
-	current_question = questions[0]
-	current_question_changed.emit(current_question)
-	print(current_question.original_json)
-	is_game_ready = true
-	game_is_ready.emit()
+		insert_question(json_line)
+	
+	try_populate_questions()
 #endregion PRIVATE METHODS
 
 #region STATIC METHODS

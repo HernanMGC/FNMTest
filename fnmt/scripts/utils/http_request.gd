@@ -31,6 +31,10 @@ signal questions_retrieved(questions : Variant)
 #region PRIVATE METHODS
 ## On ready prepares and execute request for opos questions.
 func _ready():
+	pass
+	
+# Starts query.
+func start_query():
 	if !http_request:
 		return
 	http_request.request_completed.connect(_on_request_completed)
