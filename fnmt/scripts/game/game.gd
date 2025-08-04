@@ -88,6 +88,12 @@ func answer_question(answer_index : Global.QuestionAnswer):
 	await get_tree().create_timer(wait_for_next_question_time).timeout
 	get_random_question()
 	pass
+
+## Call for database refresh.
+func update_db():
+	is_game_ready = false
+	try_populate_questions(true)
+	pass
 #endregion PUBLIC METHODS
 
 #region PRIVATE METHODS
@@ -130,11 +136,15 @@ func try_create_table() -> void:
 	database.create_table(questions_table, table_definition)
 
 ## Tries to retrieve all questions and caches on questions var, if database is empty
-func try_populate_questions() -> void:
-	var rows = database.select_rows(questions_table, "", ["*"])
+func try_populate_questions(force_update : bool = false) -> void:
+	var rows = [] if force_update else database.select_rows(questions_table, "", ["*"])
 	if rows.size() <= 0:
-		http_requester.start_query()
+		http_requester.cancel_query()
+		if http_requester.questions_retrieved.is_connected(_on_request_finished):
+			http_requester.questions_retrieved.disconnect(_on_request_finished)
 		http_requester.questions_retrieved.connect(_on_request_finished)
+		http_requester.start_query()
+
 	else:
 		parse_db_rows_to_questions(rows)
 		current_question = questions[0]
@@ -145,6 +155,7 @@ func try_populate_questions() -> void:
 
 ## Creates questions resource from rows.
 func parse_db_rows_to_questions(rows : Array[Dictionary]) -> void:
+	questions.clear()
 	for row : Dictionary in rows:
 		var question : Question = Question.new()
 		question.question_id = row["id"]

@@ -40,6 +40,14 @@ func start_query():
 	http_request.request_completed.connect(_on_request_completed)
 	http_request.request(http_request_url)
 
+# Cancelss query.
+func cancel_query():
+	if !http_request:
+		return
+	if http_request.request_completed.is_connected(_on_request_completed):
+		http_request.request_completed.disconnect(_on_request_completed)
+	http_request.cancel_request()
+
 ## On request completed print json headers.
 func _on_request_completed(_result, _response_code, _headers, body):
 	http_request.request_completed.disconnect(_on_request_completed)

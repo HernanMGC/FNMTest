@@ -37,8 +37,6 @@ func _ready() -> void:
 	if (!game):
 		return
 	
-	## TODO maybe this is a big patch.
-	
 	game.current_question_changed.connect(_on_current_question_changed)
 	game.question_answered.connect(_on_question_answered)
 	

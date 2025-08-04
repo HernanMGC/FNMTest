@@ -30,6 +30,10 @@ func _on_play_button_pressed() -> void:
 	hide()
 	game.try_start()
 	pass # Replace with function body.
+
+func _on_play_db_update_pressed() -> void:
+	game.update_db()
+	pass # Replace with function body.
 #endregion PUBLIC METHODS
 
 #region PRIVATE METHODS
