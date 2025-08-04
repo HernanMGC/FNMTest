@@ -85,6 +85,18 @@ func answer_question(answer_index : Global.QuestionAnswer):
 	## Signal sent for question answered for UI to update its feedback, answerd_sent
 	## is the answer selected by the user in the )
 	question_answered.emit(answer_index, current_question.correct_answer)
+	
+	var is_correct : bool = answer_index == current_question.correct_answer
+	var question_answered_update = {
+		"correct_answer_count" : current_question.correct_answer_count + int(is_correct),
+		"wrong_answer_count" : current_question.wrong_answer_count + int(!is_correct),
+	}
+
+	database.select_rows(questions_table, "id = '" + current_question.question_id + "'", ["id"])
+	var query_result : Array = database.query_result
+	if !query_result.is_empty():
+		database.update_rows(questions_table, "id = '"+ current_question.question_id +"'", question_answered_update)
+		
 	await get_tree().create_timer(wait_for_next_question_time).timeout
 	get_random_question()
 	pass
@@ -131,7 +143,9 @@ func try_create_table() -> void:
 		"q_option_d" : {"data_type" : "text"},
 		"q_option_e" : {"data_type" : "text"},
 		"q_option_f" : {"data_type" : "text"},
-		"q_answer" : {"data_type" : "text"}
+		"q_answer" : {"data_type" : "text"},
+		"correct_answer_count" : {"data_type" : "int"},
+		"wrong_answer_count" : {"data_type" : "int"}
 	}
 	database.create_table(questions_table, table_definition)
 
@@ -173,6 +187,8 @@ func parse_db_rows_to_questions(rows : Array[Dictionary]) -> void:
 		question.answers.append(str(row["q_option_e"]))
 		question.answers.append(str(row["q_option_f"]))
 		question.correct_answer = Global.parse_question_answer(row["q_answer"])
+		question.correct_answer_count = 0 if row["correct_answer_count"] == null else row["correct_answer_count"]
+		question.wrong_answer_count = 0 if row["wrong_answer_count"] == null else row["wrong_answer_count"]
 		questions.append(question)
 
 ## Insert quetion into table

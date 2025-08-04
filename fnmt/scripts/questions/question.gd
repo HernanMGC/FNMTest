@@ -42,6 +42,12 @@ var answers : Array[String] = []
 
 ## Index for the correct answer.
 var correct_answer : int = -1
+
+## Correct answer count.
+var correct_answer_count : int = 0
+
+## Wrong answer count.
+var wrong_answer_count : int = 0
 #endregion EXPORT VARIABLES
 
 #region PUBLIC VARIABLES

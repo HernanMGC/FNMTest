@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://csfdw1hxl68ax"]
+[gd_scene load_steps=11 format=3 uid="uid://csfdw1hxl68ax"]
 
 [ext_resource type="Script" uid="uid://dxug6pee02lqt" path="res://scripts/ui/question_ui.gd" id="1_knkug"]
 [ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/nine_patch_rect_container.gd" id="1_sd07m"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://ooydqe06gr3j" path="res://art/kenney_ui-pack-space-expansion/Vector/Yellow/bar_square_large_square.svg" id="6_hxwhs"]
 [ext_resource type="Script" uid="uid://cugevxe1378xo" path="res://scripts/ui/answer_button.gd" id="7_mi1kx"]
 [ext_resource type="PackedScene" uid="uid://cy5vgo8swb17k" path="res://scenes/ui/answer_button.tscn" id="7_t4rtd"]
+[ext_resource type="Texture2D" uid="uid://bl5excbnejgti" path="res://art/kenney_ui-pack/PNG/Green/Default/icon_checkmark.png" id="9_peyvb"]
+[ext_resource type="Texture2D" uid="uid://btgtcl674cc6h" path="res://art/kenney_ui-pack/PNG/Red/Default/icon_cross.png" id="10_1nl3g"]
 
 [node name="QuestionUI" type="Control"]
 layout_mode = 3
@@ -140,3 +142,43 @@ theme_type_variation = &"button_incorrect"
 text = "C) Asegurar la fecha y hora del momento en el que se firma"
 autowrap_mode = 2
 script = ExtResource("7_mi1kx")
+
+[node name="AnswerSummary" type="HBoxContainer" parent="Container/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+alignment = 2
+
+[node name="CorrectAnswer" type="HBoxContainer" parent="Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerSummary"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+alignment = 2
+
+[node name="IconCorrect" type="TextureRect" parent="Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerSummary/CorrectAnswer"]
+layout_mode = 2
+texture = ExtResource("9_peyvb")
+expand_mode = 3
+
+[node name="LabelCorrect" type="Label" parent="Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerSummary/CorrectAnswer"]
+layout_mode = 2
+theme = ExtResource("3_hxwhs")
+theme_type_variation = &"AnswerSummaryLabel"
+text = "0"
+
+[node name="WrongAnswer" type="HBoxContainer" parent="Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerSummary"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+alignment = 2
+
+[node name="IconWrong" type="TextureRect" parent="Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerSummary/WrongAnswer"]
+layout_mode = 2
+texture = ExtResource("10_1nl3g")
+expand_mode = 3
+
+[node name="LabelWrong" type="Label" parent="Container/NinePatchRect/MarginContainer/VBoxContainer/AnswerSummary/WrongAnswer"]
+layout_mode = 2
+theme = ExtResource("3_hxwhs")
+theme_type_variation = &"AnswerSummaryLabel"
+text = "0"
