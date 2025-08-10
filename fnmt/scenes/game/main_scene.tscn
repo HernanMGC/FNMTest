@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://nuetk3bpgysd"]
 
 [ext_resource type="PackedScene" uid="uid://dapsksj33y7pc" path="res://scenes/game/game.tscn" id="1_xgfdl"]
-[ext_resource type="Script" uid="uid://cyrn8y1iodawv" path="res://scripts/ui/main_menu.gd" id="2_ctcgr"]
-[ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/nine_patch_rect_container.gd" id="3_8dgrd"]
-[ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="4_3fhbu"]
+[ext_resource type="Script" uid="uid://s4x4h3qolb6a" path="res://scripts/ui/ui_manager.gd" id="2_3fhbu"]
+[ext_resource type="Script" uid="uid://gx7d8i6yrf25" path="res://scripts/ui/screen_container.gd" id="3_8dgrd"]
+[ext_resource type="PackedScene" uid="uid://v5ey1xdbhdfo" path="res://scenes/ui/screens/main_screen.tscn" id="4_3fhbu"]
 [ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="5_e8o1u"]
 [ext_resource type="Script" uid="uid://b178qxf0ac1ti" path="res://scripts/ui/game_ui.gd" id="6_qolqk"]
 [ext_resource type="PackedScene" uid="uid://csfdw1hxl68ax" path="res://scenes/ui/question_ui.tscn" id="7_e8o1u"]
@@ -15,6 +15,9 @@
 
 [node name="Game" parent="." instance=ExtResource("1_xgfdl")]
 
+[node name="UIManager" type="Node" parent="."]
+script = ExtResource("2_3fhbu")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MainMenu" type="Control" parent="CanvasLayer"]
@@ -24,9 +27,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_ctcgr")
 
-[node name="Container" type="Container" parent="CanvasLayer/MainMenu"]
+[node name="Screens" type="Container" parent="CanvasLayer/MainMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,44 +36,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_8dgrd")
-tile_scale = 4.0
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/MainMenu/Container"]
+[node name="MainScreen" parent="CanvasLayer/MainMenu/Screens" instance=ExtResource("4_3fhbu")]
 layout_mode = 2
-texture = ExtResource("4_3fhbu")
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu/Container/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("5_e8o1u")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/Container/NinePatchRect/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="PlayButton" type="Button" parent="CanvasLayer/MainMenu/Container/NinePatchRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("5_e8o1u")
-text = "Play"
-icon_alignment = 1
-
-[node name="UpdateDatabaseButton" type="Button" parent="CanvasLayer/MainMenu/Container/NinePatchRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("5_e8o1u")
-text = "Update Database"
-icon_alignment = 1
 
 [node name="GameUI" type="Control" parent="CanvasLayer"]
 visible = false
@@ -100,6 +67,3 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("11_efx54")
-
-[connection signal="pressed" from="CanvasLayer/MainMenu/Container/NinePatchRect/MarginContainer/VBoxContainer/PlayButton" to="CanvasLayer/MainMenu" method="_on_play_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/Container/NinePatchRect/MarginContainer/VBoxContainer/UpdateDatabaseButton" to="CanvasLayer/MainMenu" method="_on_play_db_update_pressed"]

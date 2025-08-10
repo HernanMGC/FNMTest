@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://bp7d3ggbjk2lw"]
+
+[ext_resource type="Script" uid="uid://bwdldkdi6pi77" path="res://scripts/ui/setting_screen.gd" id="1_4g6oa"]
+[ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/nine_patch_rect_container.gd" id="2_y7djg"]
+[ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="3_5hf3h"]
+[ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="4_gyg3e"]
+
+[node name="SettingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_4g6oa")
+
+[node name="SettingScreenContainer" type="Container" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_y7djg")
+tile_scale = 4.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SettingScreenContainer"]
+layout_mode = 2
+texture = ExtResource("3_5hf3h")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingScreenContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_gyg3e")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingScreenContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="PlayButton" type="Button" parent="SettingScreenContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("4_gyg3e")
+text = "Play"
+icon_alignment = 1
+
+[connection signal="pressed" from="SettingScreenContainer/NinePatchRect/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://v5ey1xdbhdfo"]
+
+[ext_resource type="Script" uid="uid://bikbhqmtmbv4g" path="res://scripts/ui/main_screen.gd" id="1_b5fur"]
+[ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/nine_patch_rect_container.gd" id="1_ngerl"]
+[ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="2_b5fur"]
+[ext_resource type="Script" uid="uid://dd3rm1qmndf84" path="res://scripts/ui/screen.gd" id="2_bvx0v"]
+[ext_resource type="PackedScene" uid="uid://bp7d3ggbjk2lw" path="res://scenes/ui/screens/setting_screen.tscn" id="2_l6q0j"]
+[ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="3_bvx0v"]
+
+[sub_resource type="Resource" id="Resource_pq4e1"]
+script = ExtResource("2_bvx0v")
+screen_scene = ExtResource("2_l6q0j")
+metadata/_custom_type_script = "uid://dd3rm1qmndf84"
+
+[node name="MainScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_b5fur")
+setting_screen = SubResource("Resource_pq4e1")
+
+[node name="MainScreenContainer" type="Container" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ngerl")
+tile_scale = 4.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MainScreenContainer"]
+layout_mode = 2
+texture = ExtResource("2_b5fur")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="MainScreenContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_bvx0v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainScreenContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="PlayButton" type="Button" parent="MainScreenContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_bvx0v")
+text = "Play"
+icon_alignment = 1
+
+[node name="UpdateDatabaseButton" type="Button" parent="MainScreenContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_bvx0v")
+text = "Update Database"
+icon_alignment = 1
+
+[node name="Settings" type="Button" parent="MainScreenContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_bvx0v")
+text = "Settings"
+icon_alignment = 1
+
+[connection signal="pressed" from="MainScreenContainer/NinePatchRect/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MainScreenContainer/NinePatchRect/MarginContainer/VBoxContainer/UpdateDatabaseButton" to="." method="_on_update_db_update_pressed"]
+[connection signal="pressed" from="MainScreenContainer/NinePatchRect/MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]

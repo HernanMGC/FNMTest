@@ -30,7 +30,10 @@ enum QuestionAnswer {
 ## Game node reference.
 var game : Game = null
 
-## Loading screen.
+## UI Manger.
+var ui_manager : UiManager = null
+
+## Game screen.
 var game_screen : GameUi = null
 
 ## Loading screen.

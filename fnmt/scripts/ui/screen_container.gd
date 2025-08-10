@@ -1,5 +1,5 @@
-class_name MainMenu
-extends Control
+class_name ScreenContainer
+extends Container
 
 ## Class Description.
 
@@ -14,10 +14,11 @@ extends Control
 #endregion PUBLIC VARIABLES
 
 #region PRIVATE VARIABLES
-## Game node reference. It will be retrieved by calling for globals and will be
-## used to connecto on_game_is_ready signal. 
-var game : Game = null
+var ui_manager : UiManager = null
 #endregion PRIVATE VARIABLES
+
+#region ONREADY PUBLIC VARIABLES
+#endregion ONREADY PUBLIC VARIABLES
 
 #region ONREADY PRIVATE VARIABLES
 #endregion ONREADY PRIVATE VARIABLES
@@ -25,23 +26,16 @@ var game : Game = null
 
 #region METHODS
 #region PUBLIC METHODS
-## Hide Main Menu and try starting the game
-func _on_play_button_pressed() -> void:
-	hide()
-	game.try_start()
-	pass # Replace with function body.
-
-func _on_play_db_update_pressed() -> void:
-	game.update_db()
-	pass # Replace with function body.
 #endregion PUBLIC METHODS
 
 #region PRIVATE METHODS
-## On ready connect to on_game_is_ready signal to stop loading spinner.
 func _ready() -> void:
-	game = Global.game
-	if (!game):
+	ui_manager = Global.ui_manager
+	if (!ui_manager):
 		return
+	
+	ui_manager.screen_container = self
+	pass
 #endregion PRIVATE METHODS
 
 #region STATIC METHODS
