@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cstxaap7eyv"]
+
+[ext_resource type="Texture2D" uid="uid://f0t0wva8q0ba" path="res://art/kenney_ui-pack/PNG/Grey/Default/icon_cross.png" id="1_8y3de"]
+[ext_resource type="Script" uid="uid://cdgixk1d4x28s" path="res://scripts/ui/foundation/close_button.gd" id="2_72uif"]
+
+[node name="CloseButton" type="Button"]
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = ExtResource("1_8y3de")
+script = ExtResource("2_72uif")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

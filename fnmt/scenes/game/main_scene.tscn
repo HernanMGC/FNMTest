@@ -20,26 +20,6 @@ script = ExtResource("2_3fhbu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="MainMenu" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Screens" type="Container" parent="CanvasLayer/MainMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("3_8dgrd")
-
-[node name="MainScreen" parent="CanvasLayer/MainMenu/Screens" instance=ExtResource("4_3fhbu")]
-layout_mode = 2
-
 [node name="GameUI" type="Control" parent="CanvasLayer"]
 visible = false
 layout_mode = 3
@@ -54,6 +34,18 @@ script = ExtResource("6_qolqk")
 [node name="QuestionUI" parent="CanvasLayer/GameUI" instance=ExtResource("7_e8o1u")]
 layout_mode = 1
 ButtonScene = ExtResource("8_ikqvo")
+
+[node name="Screens" type="Container" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_8dgrd")
+
+[node name="MainScreen" parent="CanvasLayer/Screens" instance=ExtResource("4_3fhbu")]
+layout_mode = 2
 
 [node name="LoadingScreen" parent="CanvasLayer" instance=ExtResource("10_3fhbu")]
 visible = false

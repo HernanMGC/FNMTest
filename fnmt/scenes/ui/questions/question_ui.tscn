@@ -1,12 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://csfdw1hxl68ax"]
+[gd_scene load_steps=14 format=3 uid="uid://csfdw1hxl68ax"]
 
 [ext_resource type="Script" uid="uid://dxug6pee02lqt" path="res://scripts/ui/questions/question_ui.gd" id="1_knkug"]
 [ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/foundation/nine_patch_rect_container.gd" id="1_sd07m"]
 [ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="2_knkug"]
 [ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="3_hxwhs"]
 [ext_resource type="Texture2D" uid="uid://boa8qsbav1bj2" path="res://art/kenney_ui-pack-space-expansion/PNG/Red/Default/bar_square_large_square.png" id="4_mi1kx"]
+[ext_resource type="Texture2D" uid="uid://0bwrquxbecoh" path="res://art/kenney_ui-pack-space-expansion/Vector/Grey/crosshair_color_d.svg" id="5_3mm20"]
 [ext_resource type="Texture2D" uid="uid://ooydqe06gr3j" path="res://art/kenney_ui-pack-space-expansion/Vector/Yellow/bar_square_large_square.svg" id="6_hxwhs"]
+[ext_resource type="Script" uid="uid://cwxd00fyhjxq3" path="res://scripts/ui/foundation/set_screen_button.gd" id="6_sg567"]
 [ext_resource type="Script" uid="uid://cugevxe1378xo" path="res://scripts/ui/questions/answer_button.gd" id="7_mi1kx"]
+[ext_resource type="Resource" uid="uid://80bsjoj42p8a" path="res://resources_assets/settings_screen.tres" id="7_sg567"]
 [ext_resource type="PackedScene" uid="uid://cy5vgo8swb17k" path="res://scenes/ui/questions/answer_button.tscn" id="7_t4rtd"]
 [ext_resource type="Texture2D" uid="uid://bl5excbnejgti" path="res://art/kenney_ui-pack/PNG/Green/Default/icon_checkmark.png" id="9_peyvb"]
 [ext_resource type="Texture2D" uid="uid://btgtcl674cc6h" path="res://art/kenney_ui-pack/PNG/Red/Default/icon_cross.png" id="10_1nl3g"]
@@ -49,6 +52,13 @@ theme = ExtResource("3_hxwhs")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Container/NinePatchRect/MarginContainer"]
 layout_mode = 2
+
+[node name="Button" type="Button" parent="Container/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+icon = ExtResource("5_3mm20")
+script = ExtResource("6_sg567")
+screen_resource = ExtResource("7_sg567")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Container/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -182,3 +192,5 @@ layout_mode = 2
 theme = ExtResource("3_hxwhs")
 theme_type_variation = &"AnswerSummaryLabel"
 text = "0"
+
+[connection signal="pressed" from="Container/NinePatchRect/MarginContainer/VBoxContainer/Button" to="Container/NinePatchRect/MarginContainer/VBoxContainer/Button" method="_on_button_pressed"]

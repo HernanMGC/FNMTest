@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bp7d3ggbjk2lw"]
+[gd_scene load_steps=6 format=3 uid="uid://bp7d3ggbjk2lw"]
 
 [ext_resource type="Script" uid="uid://bwdldkdi6pi77" path="res://scripts/ui/screens/setting_screen.gd" id="1_4g6oa"]
 [ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/foundation/nine_patch_rect_container.gd" id="2_y7djg"]
 [ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="3_5hf3h"]
 [ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="4_gyg3e"]
+[ext_resource type="PackedScene" uid="uid://cstxaap7eyv" path="res://scenes/ui/close_button.tscn" id="5_y7djg"]
 
 [node name="SettingScreen" type="Control"]
 layout_mode = 3
@@ -53,5 +54,8 @@ size_flags_vertical = 4
 theme = ExtResource("4_gyg3e")
 text = "Play"
 icon_alignment = 1
+
+[node name="CloseButton" parent="SettingScreenContainer/NinePatchRect/MarginContainer" instance=ExtResource("5_y7djg")]
+layout_mode = 2
 
 [connection signal="pressed" from="SettingScreenContainer/NinePatchRect/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

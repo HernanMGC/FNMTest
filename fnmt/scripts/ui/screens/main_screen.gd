@@ -26,8 +26,9 @@ var ui_manager : UiManager = null
 #region PUBLIC METHODS
 ## Hide Main Menu and try starting the game
 func _on_play_button_pressed() -> void:
-	hide()
 	game.try_start()
+	if (ui_manager):
+		ui_manager.pop_screen()
 	pass # Replace with function body.
 
 func _on_update_db_update_pressed() -> void:

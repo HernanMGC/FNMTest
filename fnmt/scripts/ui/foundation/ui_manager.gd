@@ -25,8 +25,33 @@ var screen_container : Container = null
 #region PUBLIC METHODS
 ## Push new screen.
 func push_screen(screen_resource : Screen) -> void:
-	if (screen_container):
-		screen_container.add_child(screen_resource.screen_scene.instantiate()) 
+	if (!screen_container):
+		return
+	
+	screen_container.add_child(screen_resource.screen_scene.instantiate()) 
+	return
+	
+## Push new screen.
+func set_screen(screen_resource : Screen) -> void:
+	if (!screen_container):
+		return
+	
+	var children = screen_container.get_children()
+	for child in children:
+		child.free()
+		
+	screen_container.add_child(screen_resource.screen_scene.instantiate()) 
+	return
+	
+## Pop up most screen.
+func pop_screen() -> void:
+	if (!screen_container):
+		return
+	
+	if (screen_container.get_child_count() < 1):
+		return
+	
+	screen_container.get_child(screen_container.get_child_count()-1).queue_free()
 	return
 #endregion PUBLIC METHODS
 
