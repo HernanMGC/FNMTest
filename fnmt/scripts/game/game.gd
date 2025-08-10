@@ -106,6 +106,16 @@ func update_db():
 	is_game_ready = false
 	try_populate_questions(true)
 	pass
+	
+func get_all_categories() -> Array[String]:
+	database.query("SELECT DISTINCT q_category FROM " + questions_table +  "")
+	var categories : Array[String]
+	var query_result : Array = database.query_result
+	if (!query_result.is_empty()):
+		for row in query_result:
+			categories.append(row["q_category"])
+	
+	return categories
 #endregion PUBLIC METHODS
 
 #region PRIVATE METHODS

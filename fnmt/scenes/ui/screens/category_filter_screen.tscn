@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://2lojrrkuen1f"]
+
+[ext_resource type="Script" uid="uid://bc4qjk84xn4wx" path="res://scripts/ui/screens/category_filter_screen.gd" id="1_sljya"]
+[ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/foundation/nine_patch_rect_container.gd" id="2_usplt"]
+[ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="3_hsa1q"]
+[ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="4_bv7lv"]
+[ext_resource type="PackedScene" uid="uid://cstxaap7eyv" path="res://scenes/ui/close_button.tscn" id="5_kjflh"]
+
+[node name="CategoryFilterScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_sljya")
+
+[node name="CategoryFilterContainer" type="Container" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_usplt")
+tile_scale = 4.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CategoryFilterContainer"]
+layout_mode = 2
+texture = ExtResource("3_hsa1q")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="CategoryFilterContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_bv7lv")
+
+[node name="FilterOptionsContainer" type="VBoxContainer" parent="CategoryFilterContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="CheckButton" type="CheckButton" parent="CategoryFilterContainer/NinePatchRect/MarginContainer/FilterOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Option"
+
+[node name="CloseButton" parent="CategoryFilterContainer/NinePatchRect/MarginContainer" instance=ExtResource("5_kjflh")]
+layout_mode = 2

@@ -8,12 +8,10 @@ extends Control
 
 #region VARIABLES
 #region EXPORT VARIABLES
+@export var category_filter_screen_resource : Screen = null
 #endregion EXPORT VARIABLES
 
 #region PRIVATE VARIABLES
-## Game node reference. It will be retrieved by calling for globals and will be
-## used to connecto on_game_is_ready signal. 
-var game : Game = null
 var ui_manager : UiManager = null
 #endregion PRIVATE VARIABLES
 
@@ -28,10 +26,14 @@ var ui_manager : UiManager = null
 #region PRIVATE METHODS
 ## On ready connect to on_game_is_ready signal to stop loading spinner.
 func _ready() -> void:
-	game = Global.game
 	ui_manager = Global.ui_manager
-	if (!game || !ui_manager):
+	if (!ui_manager):
 		return
+		
+func _on_category_filter_button_pressed() -> void:
+	ui_manager.push_screen(category_filter_screen_resource)
+	pass # Replace with function body.
+
 #endregion PRIVATE METHODS
 
 #region STATIC METHODS

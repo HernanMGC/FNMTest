@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp7d3ggbjk2lw"]
+[gd_scene load_steps=7 format=3 uid="uid://bp7d3ggbjk2lw"]
 
 [ext_resource type="Script" uid="uid://bwdldkdi6pi77" path="res://scripts/ui/screens/setting_screen.gd" id="1_4g6oa"]
+[ext_resource type="Resource" uid="uid://dg6v87txkbls5" path="res://resources_assets/category_filter_screen.tres" id="2_5hf3h"]
 [ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/foundation/nine_patch_rect_container.gd" id="2_y7djg"]
 [ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="3_5hf3h"]
 [ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="4_gyg3e"]
@@ -16,6 +17,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_4g6oa")
+category_filter_screen_resource = ExtResource("2_5hf3h")
 
 [node name="SettingScreenContainer" type="Container" parent="."]
 layout_mode = 2
@@ -43,19 +45,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_gyg3e")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingScreenContainer/NinePatchRect/MarginContainer"]
+[node name="FilterOptionsContainer" type="VBoxContainer" parent="SettingScreenContainer/NinePatchRect/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="PlayButton" type="Button" parent="SettingScreenContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="CategoryFilterButton" type="Button" parent="SettingScreenContainer/NinePatchRect/MarginContainer/FilterOptionsContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("4_gyg3e")
-text = "Play"
-icon_alignment = 1
+text = "Category Filter"
 
 [node name="CloseButton" parent="SettingScreenContainer/NinePatchRect/MarginContainer" instance=ExtResource("5_y7djg")]
 layout_mode = 2
 
-[connection signal="pressed" from="SettingScreenContainer/NinePatchRect/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="SettingScreenContainer/NinePatchRect/MarginContainer/FilterOptionsContainer/CategoryFilterButton" to="." method="_on_category_filter_button_pressed"]
