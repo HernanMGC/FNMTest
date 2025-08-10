@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://v5ey1xdbhdfo"]
 
-[ext_resource type="Script" uid="uid://bikbhqmtmbv4g" path="res://scripts/ui/main_screen.gd" id="1_b5fur"]
-[ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/nine_patch_rect_container.gd" id="1_ngerl"]
+[ext_resource type="Script" uid="uid://bikbhqmtmbv4g" path="res://scripts/ui/screens/main_screen.gd" id="1_b5fur"]
+[ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/foundation/nine_patch_rect_container.gd" id="1_ngerl"]
 [ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="2_b5fur"]
-[ext_resource type="Script" uid="uid://dd3rm1qmndf84" path="res://scripts/ui/screen.gd" id="2_bvx0v"]
+[ext_resource type="Script" uid="uid://dd3rm1qmndf84" path="res://resources/ui/screen.gd" id="2_bvx0v"]
 [ext_resource type="PackedScene" uid="uid://bp7d3ggbjk2lw" path="res://scenes/ui/screens/setting_screen.tscn" id="2_l6q0j"]
 [ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="3_bvx0v"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dd076ltdp5car"]
 
-[ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/nine_patch_rect_container.gd" id="1_5fj0j"]
+[ext_resource type="Script" uid="uid://d1d6qn7x3jcmg" path="res://scripts/ui/foundation/nine_patch_rect_container.gd" id="1_5fj0j"]
 [ext_resource type="Texture2D" uid="uid://dcctilcjnhmtd" path="res://art/kenney_ui-pack/Vector/Blue/button_square_border.svg" id="2_s2kth"]
 [ext_resource type="Texture2D" uid="uid://dvk22lidxat78" path="res://icon.svg" id="3_s41fs"]
 

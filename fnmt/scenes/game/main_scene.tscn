@@ -1,15 +1,15 @@
 [gd_scene load_steps=11 format=3 uid="uid://nuetk3bpgysd"]
 
 [ext_resource type="PackedScene" uid="uid://dapsksj33y7pc" path="res://scenes/game/game.tscn" id="1_xgfdl"]
-[ext_resource type="Script" uid="uid://s4x4h3qolb6a" path="res://scripts/ui/ui_manager.gd" id="2_3fhbu"]
-[ext_resource type="Script" uid="uid://gx7d8i6yrf25" path="res://scripts/ui/screen_container.gd" id="3_8dgrd"]
+[ext_resource type="Script" uid="uid://s4x4h3qolb6a" path="res://scripts/ui/foundation/ui_manager.gd" id="2_3fhbu"]
+[ext_resource type="Script" uid="uid://gx7d8i6yrf25" path="res://scripts/ui/screens/screen_container.gd" id="3_8dgrd"]
 [ext_resource type="PackedScene" uid="uid://v5ey1xdbhdfo" path="res://scenes/ui/screens/main_screen.tscn" id="4_3fhbu"]
 [ext_resource type="Theme" uid="uid://cpqjmgf861frq" path="res://themes/fnmt.tres" id="5_e8o1u"]
-[ext_resource type="Script" uid="uid://b178qxf0ac1ti" path="res://scripts/ui/game_ui.gd" id="6_qolqk"]
-[ext_resource type="PackedScene" uid="uid://csfdw1hxl68ax" path="res://scenes/ui/question_ui.tscn" id="7_e8o1u"]
-[ext_resource type="PackedScene" uid="uid://cy5vgo8swb17k" path="res://scenes/ui/answer_button.tscn" id="8_ikqvo"]
-[ext_resource type="PackedScene" uid="uid://dd076ltdp5car" path="res://scenes/ui/loading_screen.tscn" id="10_3fhbu"]
-[ext_resource type="Script" uid="uid://du0ll60ma0x8g" path="res://scripts/ui/loading_screen.gd" id="11_efx54"]
+[ext_resource type="Script" uid="uid://b178qxf0ac1ti" path="res://scripts/ui/questions/game_ui.gd" id="6_qolqk"]
+[ext_resource type="PackedScene" uid="uid://csfdw1hxl68ax" path="res://scenes/ui/questions/question_ui.tscn" id="7_e8o1u"]
+[ext_resource type="PackedScene" uid="uid://cy5vgo8swb17k" path="res://scenes/ui/questions/answer_button.tscn" id="8_ikqvo"]
+[ext_resource type="PackedScene" uid="uid://dd076ltdp5car" path="res://scenes/ui/screens/loading_screen.tscn" id="10_3fhbu"]
+[ext_resource type="Script" uid="uid://du0ll60ma0x8g" path="res://scripts/ui/screens/loading_screen.gd" id="11_efx54"]
 
 [node name="MainScene" type="Node"]
 
